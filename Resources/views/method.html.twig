@@ -25,7 +25,14 @@
                 {% endif -%}
                 {{ data.uri }}
             </span>
-           {% if data.tags is defined %}
+            
+            {% if data.routeName is defined -%}
+            <span style="color: #999; font-size: 0.7em;">
+                <i>{{ data.routeName }}</i>
+            </span>
+            {% endif %}
+            
+            {% if data.tags is defined %}
                 {% for tag, color_code in data.tags %}
                     <span class="tag" {% if color_code is defined and color_code is not empty %}style="background-color:{{ color_code }};"{% endif %}>{{ tag }}</span>
                 {% endfor %}
