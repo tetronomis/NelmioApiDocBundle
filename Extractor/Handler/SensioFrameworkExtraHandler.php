@@ -16,6 +16,7 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\Routing\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route as ExtraRoute;
 
 class SensioFrameworkExtraHandler implements HandlerInterface
 {
@@ -26,6 +27,8 @@ class SensioFrameworkExtraHandler implements HandlerInterface
                 $annotation->setCache($annot->getMaxAge());
             } elseif ($annot instanceof Security) {
                 $annotation->setAuthentication(true);
+            } elseif ($annot instanceof ExtraRoute) {
+                $annotation->setRouteName($annot->getName());
             }
         }
     }
