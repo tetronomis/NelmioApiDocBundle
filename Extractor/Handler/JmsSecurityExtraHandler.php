@@ -28,7 +28,6 @@ class JmsSecurityExtraHandler implements HandlerInterface
                 $annotation->setAuthentication(true);
                 $annotation->setAuthenticationRoles(is_array($annot->roles) ? $annot->roles : explode(',', $annot->roles));
             }
-            $annotation->setRouteName($annot->getName());
         }
     }
 }
