@@ -169,6 +169,11 @@ class ApiDoc
      * @var array
      */
     private $tags = array();
+    
+    /**
+     * @var string
+     */
+    private $routeName = null;
 
     public function __construct(array $data)
     {
@@ -789,5 +794,21 @@ class ApiDoc
         if ($statusCode == 200 && $this->response !== $model) {
             $this->response = $model;
         }
+    }
+    
+    /**
+     * @return string
+     */
+    public function getRouteName()
+    {
+        return $this->routeName;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setRouteName($name)
+    {
+        $this->routeName = $name;
     }
 }
