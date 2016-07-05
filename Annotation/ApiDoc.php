@@ -751,7 +751,8 @@ class ApiDoc
         $data['authentication'] = $this->authentication;
         $data['authenticationRoles'] = $this->authenticationRoles;
         $data['deprecated'] = $this->deprecated;
-
+        $data['routeName'] = $this->routeName;
+        
         return $data;
     }
 
