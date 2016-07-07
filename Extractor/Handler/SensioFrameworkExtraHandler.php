@@ -27,7 +27,7 @@ class SensioFrameworkExtraHandler implements HandlerInterface
                 $annotation->setCache($annot->getMaxAge());
             } elseif ($annot instanceof Security) {
                 $annotation->setAuthentication(true);
-            } elseif ($annot instanceof ExtraRoute) {
+            } elseif ($annot instanceof ExtraRoute && $route->getPath() === $annot->getPath()) { 
                 $annotation->setRouteName($annot->getName());
             }
         }
