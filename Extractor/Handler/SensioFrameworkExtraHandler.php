@@ -14,9 +14,11 @@ namespace Nelmio\ApiDocBundle\Extractor\Handler;
 use Nelmio\ApiDocBundle\Extractor\HandlerInterface;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\Routing\Route;
+use Symfony\Component\Routing\Annotation\Route as BasicRoute;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route as ExtraRoute;
+
 
 class SensioFrameworkExtraHandler implements HandlerInterface
 {
@@ -27,7 +29,7 @@ class SensioFrameworkExtraHandler implements HandlerInterface
                 $annotation->setCache($annot->getMaxAge());
             } elseif ($annot instanceof Security) {
                 $annotation->setAuthentication(true);
-            } elseif ($annot instanceof ExtraRoute && $route->getPath() === $annot->getPath()) { 
+            } elseif (($annot instanceof BasicRoute || $annot instanceof ExtraRoute) && $route->getPath() === $annot->getPath()) { 
                 $annotation->setRouteName($annot->getName());
             }
         }
