@@ -168,9 +168,9 @@ class JmsMetadataParser implements ParserInterface, PostParserInterface
 
                 // check for nested classes with JMS metadata
                 $depth = $depth === null ? (isset($item->maxDepth) ? $item->maxDepth : 1) : $depth;
-                if ($depth > 0 && $dataType['class'] && false === $dataType['primitive'] && null !== $this->factory->getMetadataForClass($dataType['class'])) {
+                if (($depth === null || $depth > 0) && $dataType['class'] && false === $dataType['primitive'] && null !== $this->factory->getMetadataForClass($dataType['class'])) {
                     $visited[] = $dataType['class'];
-                    $children  = $this->doParse($dataType['class'], $visited, $groups, ($depth - 1));
+                    $children  = $this->doParse($dataType['class'], $visited, $groups, ($depth === null ? null : $depth - 1));
 
                     if ($dataType['inline']) {
                         $params = array_merge($params, $children);
