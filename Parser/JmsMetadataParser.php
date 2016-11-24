@@ -99,7 +99,7 @@ class JmsMetadataParser implements ParserInterface, PostParserInterface
      * @return array                     metadata for given class
      * @throws \InvalidArgumentException
      */
-    protected function doParse($className, $visited = array(), array $groups = array(), $depth = null)
+    protected function doParse($className, $visited = array(), array $groups = array(), $parentDepth = null)
     {
         $meta = $this->factory->getMetadataForClass($className);
 
@@ -165,12 +165,12 @@ class JmsMetadataParser implements ParserInterface, PostParserInterface
                 if (in_array($dataType['class'], $visited)) {
                     continue;
                 }
+                
 
-                // check for nested classes with JMS metadata
-                $depth = $depth === null ? (isset($item->maxDepth) ? $item->maxDepth : 1) : $depth;
-                if (($depth === null || $depth > 0) && $dataType['class'] && false === $dataType['primitive'] && null !== $this->factory->getMetadataForClass($dataType['class'])) {
+                $depth = $parentDepth === null ? (isset($item->maxDepth) ? $item->maxDepth : 1) : $parentDepth;
+                if ($dataType['class'] && false === $dataType['primitive'] &&  $depth > 0 && null !== $this->factory->getMetadataForClass($dataType['class'])) {
                     $visited[] = $dataType['class'];
-                    $children  = $this->doParse($dataType['class'], $visited, $groups, ($depth === null ? null : $depth - 1));
+                    $children  = $this->doParse($dataType['class'], $visited, $groups, $depth);
 
                     if ($dataType['inline']) {
                         $params = array_merge($params, $children);
