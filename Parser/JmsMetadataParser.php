@@ -170,7 +170,7 @@ class JmsMetadataParser implements ParserInterface, PostParserInterface
                 $depth = $parentDepth === null ? (isset($item->maxDepth) ? $item->maxDepth : 1) : $parentDepth;
                 if ($dataType['class'] && false === $dataType['primitive'] &&  $depth > 0 && null !== $this->factory->getMetadataForClass($dataType['class'])) {
                     $visited[] = $dataType['class'];
-                    $children  = $this->doParse($dataType['class'], $visited, $groups, $depth);
+                    $children  = $this->doParse($dataType['class'], $visited, $groups, ($depth - 1));
 
                     if ($dataType['inline']) {
                         $params = array_merge($params, $children);
